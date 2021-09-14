@@ -17,24 +17,7 @@ def get_html(page_name):
 # all fields must be completed for the entry to be able to be submitted        
 # end date must be after the start date
 # renewal date must be after the start date
-## Function calculates days from current day to renewal day
-def add_subscription():
-    class Subscription:
-        number_of_subscriptions = 0
-        def __init__(self):
-            self.name = flask.request.args.get("name")
-            self.start = flask.request.args.get("start")
-            self.end = flask.request.args.get("end")
-            self.renewal = flask.request.args.get("renewal")
-            self.fee = flask.request.args.get("fee")
-            Subscription.number_of_subscriptions =+ 1
-            with open ("subscriptions.csv", "w", newline="") as file:
-                writer = csv.writer(file)
-                if Subscription.number_of_subscriptions == 0:
-                    writer.writerow(["Subscription Name", "Subscription Start Date", "Subscription End Date", "Subscription Renewal Date", "Subscription Fee"])
-                    writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])
-                else:
-                    writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])              
+## Function calculates days from current day to renewal day            
 
 @app.route("/")
 def homepage():
@@ -42,6 +25,5 @@ def homepage():
 
 @app.route("/add_subscription")
 def add():
-    add_subscription()
     return get_html("add_subscription")
 
