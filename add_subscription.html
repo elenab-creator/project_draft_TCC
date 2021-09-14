@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscriptions App</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <h1>Subscriptions Management App</h1>  
+  <p> </p>
+  <div id="dateDiv"> 
+  </div>
+  <p> </p>
+  <h2>Add New Subscription</h2>
+  <div id="addSubscription">
+    <form action="/add_subscription" method="get">
+      <label for="name">Subscription name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="start">Subscription start date:</label>
+      <input type="date" id="start" name="start" min="2020-01-01" max="2040-12-31"><br><br>
+      <label for="end">Subscription end date:</label>
+      <input type="date" id="end" name="end" min="2020-01-01" max="2040-12-31"><br><br>
+      <label for="renewal">Subscription renewal date:</label>
+      <input type="date" id="renewal" name="renewal" min="2020-01-01" max="2040-12-31"><br><br>
+      <label for="fee">Subscription fee:</label>
+      <input type="text" id="fee" name="fee"><br><br>
+      <input type="submit" value="Submit" id="subscriptionButton"><br><br>
+    </form>
+    <form action="/">
+      <button type="submit">Cancel</button>
+    </form>
+  </div>
+  <script src="static/add_subscription.js"></script>
+</body>
+</html>
+
+
