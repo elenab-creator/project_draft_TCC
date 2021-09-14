@@ -11,13 +11,12 @@ def get_html(page_name):
     html_file = open(page_name + ".html")
     content = html_file.read()
     html_file.close()
-    return content
+    return content          
 
-## Conditions
-# all fields must be completed for the entry to be able to be submitted        
-# end date must be after the start date
-# renewal date must be after the start date
-## Function calculates days from current day to renewal day            
+def add_subscription():
+    subscriptionsdb = open("subscriptions.txt","a") 
+    subscriptionsdb.write("name")
+    subscriptionsdb.close()
 
 @app.route("/")
 def homepage():
@@ -25,5 +24,6 @@ def homepage():
 
 @app.route("/add_subscription")
 def add():
+    add_subscription()
     return get_html("add_subscription")
 
