@@ -14,6 +14,16 @@ def get_html(page_name):
     return content          
 
 def write_subscription():
+    with open ("subscriptions.csv", "a", newline="") as file:
+        name = flask.request.args.get("name")
+        start = flask.request.args.get("start")
+        end = flask.request.args.get("end")
+        renewal = flask.request.args.get("renewal")
+        fee = flask.request.args.get("fee")
+        writer = csv.writer(file, delimiter=",")
+        writer.writerow([name, start, end, renewal, fee])
+
+def write_subscription_txt():
     subscriptionsdb = open("subscriptions.txt","a")
     name_sub = flask.request.args.get("name")
     subscriptionsdb.write(name_sub)
