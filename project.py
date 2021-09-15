@@ -2,7 +2,7 @@
 import flask
 app = flask.Flask("project")
 
-import datetime
+from datetime import date
 
 import csv
 
@@ -13,21 +13,26 @@ def get_html(page_name):
     html_file.close()
     return content          
 
-def write_subscription():
-    with open ("subscriptions.csv", "a", newline="") as file:
-        name = flask.request.args.get("name")
-        start = flask.request.args.get("start")
-        end = flask.request.args.get("end")
-        renewal = flask.request.args.get("renewal")
-        fee = flask.request.args.get("fee")
-        writer = csv.writer(file, delimiter=",")
-        writer.writerow([name, start, end, renewal, fee])
+class Subscription:
+    def __init__(self, name, start, end, renewal, fee):
+        self.name = name
+        self.start = start
+        self.end = end
+        self.renewal = renewal
+        self.fee = fee
+    def write_to_file(self):
+        with open ("subscriptions.csv", "a", newline="") as file:
+            writer = csv.writer(file, delimiter=",")
+            writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])
 
-def write_subscription_txt():
-    subscriptionsdb = open("subscriptions.txt","a")
-    name_sub = flask.request.args.get("name")
-    subscriptionsdb.write(name_sub)
-    subscriptionsdb.close()
+def new_subscription():
+    name = flask.request.args.get("name")
+    start = flask.request.args.get("start")
+    end = flask.request.args.get("end")
+    renewal = flask.request.args.get("renewal")
+    fee = flask.request.args.get("fee")
+    subscription = Subscription(name, start, end, renewal, fee)
+    subscription.write_to_file()
 
 @app.route("/")
 def homepage():
@@ -43,7 +48,7 @@ def show_subscriptions_page():
 
 @app.route("/add_subscription")
 def submit_subscription():
-    write_subscription()
+    new_subscription()
     return get_html("subscriptions")
 
 
