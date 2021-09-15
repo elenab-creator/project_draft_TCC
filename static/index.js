@@ -40,16 +40,16 @@ function addLinks(){
     const showSubscriptionsAnchor = document.createElement('a');
     const showSubscriptionsLink = document.createTextNode("Check your subscriptions");
     showSubscriptionsAnchor.appendChild(showSubscriptionsLink);
-    showSubscriptionsAnchor.href = "/show_subscriptions"; 
+    showSubscriptionsAnchor.href = "/show_subscriptions_page"; 
     document.body.appendChild(showSubscriptionsAnchor);
 
     const break1 = document.createElement("br")
     document.body.appendChild(break1);
 
     const addSubscriptionAnchor = document.createElement('a');
-    const addSubscriptionLink = document.createTextNode("Add another subscription");
+    const addSubscriptionLink = document.createTextNode("Add a new subscription");
     addSubscriptionAnchor.appendChild(addSubscriptionLink);
-    addSubscriptionAnchor.href = "/add_subscription"; 
+    addSubscriptionAnchor.href = "/add_subscription_page"; 
     document.body.appendChild(addSubscriptionAnchor);
 
     const break2 = document.createElement("br")
@@ -77,7 +77,7 @@ function addReminders(){
 
 
 function firstAccess(){
-    firstHello();
+    nameButton.addEventListener("click", firstHello);
     nameButton.addEventListener("click", nextHello);
     nameButton.addEventListener("click", removeButton);
     nameButton.addEventListener("click", removeTextBox);
