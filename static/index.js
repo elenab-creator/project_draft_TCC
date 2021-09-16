@@ -3,6 +3,9 @@ const helloDiv = document.getElementById("helloDiv")
 const giveName = document.getElementById("giveName")
 const nameButton = document.getElementById("nameButton");
 const nameText = document.getElementById("nameText");
+const dateDiv = document.getElementById("dateDiv");
+const remindersDiv = document.getElementById("remindersDiv");
+const remindersTitleDiv = document.getElementById("remindersTitleDiv");
 
 // Function that takes the input of the nameText textbox (user's name) and adds it to a 
 // personalized message, which is then saved in the local storage 
@@ -32,7 +35,7 @@ function addTodaysDate(){
     const today = new Date();
     const todaysDate = today.getDate() + "/" + (today.getMonth()+1) + "/" + today.getFullYear()
     date.innerText = "Today's date is: " + todaysDate;
-    document.body.appendChild(date);
+    dateDiv.appendChild(date);
 }
 
 // Function that adds links to the subscriptions list, to the add subscription and the index html page
@@ -62,17 +65,13 @@ function addLinks(){
     document.body.appendChild(homepageAnchor);
 }
 
-// Function that sets the reminders for subscriptions that are about to be renewed
-// !! TO DO 1. Message remindersTitle should appear only when a renewal of one or more subscriptions happens in <= 7 days
-// !! TO DO 2. Message reminder should appear for each subscription that renews in <= 7 days
-// !! TO DO 3. Name, last day of subscription, date of renewal of subscription gets obtained by the txt file
 function addReminders(){
     const remindersTitle = document.createElement("p");
     remindersTitle.innerText = "Reminders!";
-    document.body.appendChild(remindersTitle);
+    remindersTitleDiv.appendChild(remindersTitle);
     const reminder = document.createElement("p");
-    reminder.innerText = "Your x subscription renews in y days (xx.xx.xxxx). You can cancel it until xx.xx.xxxx -1.";
-    document.body.appendChild(reminder);
+    reminder.innerText = "$$SUBSCRIPTIONS$$";
+    remindersDiv.appendChild(reminder);
 }
 
 

@@ -24,6 +24,8 @@ class Subscription:
         with open ("subscriptions.csv", "a", newline="") as file:
             writer = csv.writer(file, delimiter=",")
             writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])
+    def reminders(self):
+        return self.name + "renews on " + self.renewal # how to make it work? One paragraph for each object of the class replace REMINDERS placeholder
 
 def new_subscription():
     global subscription
