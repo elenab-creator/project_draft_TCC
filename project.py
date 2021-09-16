@@ -26,6 +26,7 @@ class Subscription:
             writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])
 
 def new_subscription():
+    global subscription
     name = flask.request.args.get("name")
     start = flask.request.args.get("start")
     end = flask.request.args.get("end")
@@ -33,11 +34,6 @@ def new_subscription():
     fee = flask.request.args.get("fee")
     subscription = Subscription(name, start, end, renewal, fee)
     subscription.write_to_file()
-
-def show_subscriptions():
-    with open('subscriptions.csv', 'r', newline='') as file:
-        reader = csv.reader(file)
-        return list(reader)
 
 @app.route("/")
 def homepage():
@@ -54,8 +50,16 @@ def submit_subscription():
 
 @app.route("/show_subscriptions") 
 def subscriptions_page():
+    rows = []
     html_page = get_html("subscriptions")
-    subscriptions = show_subscriptions()
-    return html_page.replace("$$SUBSCRIPTIONS$$", subscriptions)
-
+    with open('subscriptions.csv', 'r', newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            rows.append(row)
+            result = ""
+            for row in rows:
+                each_subscription = (str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + "\t" + str(row[3]) + "\t" + str(row[4]))
+                result += "<p>" + each_subscription + "<p>"
+            return html_page.replace("$$SUBSCRIPTIONS$$", result)
+            ### only returns first row!!!
 

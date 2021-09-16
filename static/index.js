@@ -40,7 +40,7 @@ function addLinks(){
     const showSubscriptionsAnchor = document.createElement('a');
     const showSubscriptionsLink = document.createTextNode("Check your subscriptions");
     showSubscriptionsAnchor.appendChild(showSubscriptionsLink);
-    showSubscriptionsAnchor.href = "/show_subscriptions_page"; 
+    showSubscriptionsAnchor.href = "/show_subscriptions"; 
     document.body.appendChild(showSubscriptionsAnchor);
 
     const break1 = document.createElement("br")
