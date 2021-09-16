@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+
+<script type="text/javascript">
+function read(callback){
+    var file = "subscriptions.csv";
+    var reader = new FileReader();
+    reader.onload = function (e){
+        callback(reader.result);
+        var table = document.createElement("table");
+        var rows = e.target.result.split("\n");
+        for (var i = 0; i < rows.length; i++){
+            var cells = rows[i].split(",");
+            if (cells.length > 1){
+                var row = table.insertRow(-1);
+                for (var j = 0; j < cells.length; j++){
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = cells[j];
+                }
+            }
+        }
+        var dvCSV = document.getElementById("dvCSV");
+        dvCSV.innerHTML = "";
+        dvCSV.appendChild(table);
+    }
+reader.readAsText(fileInput);
+}
+</script>
+
+<div id="dvCSV"></div>
+
+</body>
+</html>

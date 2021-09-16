@@ -34,6 +34,11 @@ def new_subscription():
     subscription = Subscription(name, start, end, renewal, fee)
     subscription.write_to_file()
 
+def show_subscriptions():
+    with open('subscriptions.csv', 'r', newline='') as file:
+        reader = csv.reader(file)
+        return list(reader)
+
 @app.route("/")
 def homepage():
     return get_html("index")
@@ -42,14 +47,15 @@ def homepage():
 def show_subscription_add_page():
     return get_html("add_subscription")
 
-@app.route("/show_subscriptions_page")
-def show_subscriptions_page():
-    return get_html("subscriptions")
-
 @app.route("/add_subscription")
 def submit_subscription():
     new_subscription()
-    return get_html("subscriptions")
+    return get_html("add_subscription")
 
+@app.route("/show_subscriptions") 
+def subscriptions_page():
+    html_page = get_html("subscriptions")
+    subscriptions = show_subscriptions()
+    return html_page.replace("$$SUBSCRIPTIONS$$", subscriptions)
 
 
