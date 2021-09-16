@@ -29,7 +29,7 @@ function removeTextBox(){
     giveName.removeChild(nameText);
 }
 
-// Function that adds today's date
+// Function that adds the date at the time of the access of the app
 function addTodaysDate(){
     const date = document.createElement("p");
     const today = new Date();
@@ -48,21 +48,15 @@ function addLinks(){
 
     const break1 = document.createElement("br")
     document.body.appendChild(break1);
+    const empty = document.createElement("p")
+    document.body.appendChild(empty);
+
 
     const addSubscriptionAnchor = document.createElement('a');
     const addSubscriptionLink = document.createTextNode("Add a new subscription");
     addSubscriptionAnchor.appendChild(addSubscriptionLink);
     addSubscriptionAnchor.href = "/add_subscription_page"; 
     document.body.appendChild(addSubscriptionAnchor);
-
-    const break2 = document.createElement("br")
-    document.body.appendChild(break2);
-
-    const homepageAnchor = document.createElement('a');
-    const homepageLink = document.createTextNode("Homepage");
-    homepageAnchor.appendChild(homepageLink);
-    homepageAnchor.href = "/"; 
-    document.body.appendChild(homepageAnchor);
 }
 
 function addReminders(){
