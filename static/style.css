@@ -1,0 +1,19 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#helloDiv {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#dateDiv {
+    font-size: 18px;
+    font-style: oblique;
+}
+
+#remindersTitleDiv{
+    font-size: 20px;
+    color: darkred;
+}
+
