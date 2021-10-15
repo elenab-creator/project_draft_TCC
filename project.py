@@ -51,7 +51,7 @@ def show_subscription_add_page():
 @app.route("/add_subscription")
 def submit_subscription():
     new_subscription()
-    return get_html("subscriptions")
+    return get_html("/show_subscriptions") ############ need to direct route("/show_subscriptions") not the page as it is
 
 @app.route("/show_subscriptions") 
 def subscriptions_page():
