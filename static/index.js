@@ -21,7 +21,7 @@ function nextHello(){
     helloDiv.innerText = welcomeMessage;
 }
 
-// Functions that remove the submit name text and button after the user has logged in the first time
+// Functions that remove the submit name text and button after the user has logged in for the first time
 function removeButton(){
     giveName.removeChild(nameButton);
 }
@@ -29,7 +29,7 @@ function removeTextBox(){
     giveName.removeChild(nameText);
 }
 
-// Function that adds the date at the time of the access of the app
+// Function that adds the date at the time that the user accesses the app
 function addTodaysDate(){
     const date = document.createElement("p");
     const today = new Date();
@@ -38,7 +38,7 @@ function addTodaysDate(){
     dateDiv.appendChild(date);
 }
 
-// Function that adds links to the subscriptions list, to the add subscription and the index html page
+// Function that adds links to the subscriptions list and to the add subscription page
 function addLinks(){
     const showSubscriptionsAnchor = document.createElement('a');
     const showSubscriptionsLink = document.createTextNode("Check your subscriptions");
@@ -51,7 +51,6 @@ function addLinks(){
     const empty = document.createElement("p")
     document.body.appendChild(empty);
 
-
     const addSubscriptionAnchor = document.createElement('a');
     const addSubscriptionLink = document.createTextNode("Add a new subscription");
     addSubscriptionAnchor.appendChild(addSubscriptionLink);
@@ -59,16 +58,17 @@ function addLinks(){
     document.body.appendChild(addSubscriptionAnchor);
 }
 
-function addReminders(){
-    const remindersTitle = document.createElement("p");
-    remindersTitle.innerText = "Reminders!";
-    remindersTitleDiv.appendChild(remindersTitle);
-    const reminder = document.createElement("p");
-    reminder.innerText = "$$SUBSCRIPTIONS$$";
-    remindersDiv.appendChild(reminder);
-}
+// function addReminders(){
+//      const remindersTitle = document.createElement("p");
+//      remindersTitle.innerText = "Reminders!";
+//      remindersTitleDiv.appendChild(remindersTitle);
+//      const reminder = document.createElement("p");
+//      reminder.href = "/show_reminders";
+//      reminder.innerText = "$$REMINDERS$$";
+//      remindersDiv.appendChild(reminder);
+// }
 
-
+// The function that will be executed when the user access the user for the first time in one browser
 function firstAccess(){
     nameButton.addEventListener("click", firstHello);
     nameButton.addEventListener("click", nextHello);
@@ -79,7 +79,7 @@ function firstAccess(){
     nameButton.addEventListener("click", addReminders);
 }
 
-
+// The function that the defines the functions that will be executed in every access of the index page after the first one
 function nextAccess(){
     nextHello()
     removeButton()
@@ -88,7 +88,6 @@ function nextAccess(){
     addLinks();
     addReminders();
 }
-
 
 // The following if statement defines which of the above two functions will be executed, 
 // depending on whether the user has used the app in this browser before or not

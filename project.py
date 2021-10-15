@@ -2,17 +2,19 @@
 import flask
 app = flask.Flask("project")
 
-from datetime import date
-
 import csv
 
-# Function that will get the different html pages of the app
+# Function that will read the content of each html file and return it in the browser
 def get_html(page_name):
     html_file = open(page_name + ".html")
     content = html_file.read()
     html_file.close()
     return content          
 
+# Defining class Subscription. Every added by the user subscription will be an instance of this class.
+# The attributes of this class instance are the name, start date, end date, renewal date and fee for each subscription.
+# The first method is a class constructor. 
+# The second method writes the attributes of each object in a new line of a csv file.
 class Subscription:
     def __init__(self, name, start, end, renewal, fee):
         self.name = name
@@ -24,9 +26,10 @@ class Subscription:
         with open ("subscriptions.csv", "a", newline="") as file:
             writer = csv.writer(file, delimiter=",")
             writer.writerow([self.name, self.start, self.end, self.renewal, self.fee])
-    def reminders(self):
-        return self.name + "renews on " + self.renewal # how to make it work? One paragraph for each object of the class replace REMINDERS placeholder
 
+# Function that will obtain the information provided by the user when a new subscription is added, 
+# create a new subscription object of the class Object and
+# write the object attributes in the csv file
 def new_subscription():
     global subscription
     name = flask.request.args.get("name")
@@ -48,7 +51,7 @@ def show_subscription_add_page():
 @app.route("/add_subscription")
 def submit_subscription():
     new_subscription()
-    return get_html("add_subscription")
+    return get_html("subscriptions")
 
 @app.route("/show_subscriptions") 
 def subscriptions_page():
@@ -58,10 +61,11 @@ def subscriptions_page():
         reader = csv.reader(file)
         for row in reader:
             rows.append(row)
-            result = ""
+            lines = ("<table border=1> <tr> <td> Subscription Name </td> <td> Subscription Start Date </td> <td> Subscription End Date </td> <td> Subscription Renewal Date </td> <td> Subscription Fee </td> </tr>")
             for row in rows:
-                each_subscription = (str(row[0]) + "\t" + str(row[1]) + "\t" + str(row[2]) + "\t" + str(row[3]) + "\t" + str(row[4]))
-                result += "<p>" + each_subscription + "<p>"
-            return html_page.replace("$$SUBSCRIPTIONS$$", result)
-            ### only returns first row!!!
+                each_subscription = ("<tr> <td>" + str(row[0]) + "</td> <td>" + str(row[1]) + "</td> <td>" + str(row[2]) + "</td> <td>" + str(row[3]) + "</td> <td>" + str(row[4]) + "</td> </tr>")
+                lines += each_subscription
+            result = lines + "</table>"
+        return html_page.replace("$$SUBSCRIPTIONS$$", result)
+
 
