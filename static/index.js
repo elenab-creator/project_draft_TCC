@@ -58,16 +58,6 @@ function addLinks(){
     document.body.appendChild(addSubscriptionAnchor);
 }
 
-// function addReminders(){
-//      const remindersTitle = document.createElement("p");
-//      remindersTitle.innerText = "Reminders!";
-//      remindersTitleDiv.appendChild(remindersTitle);
-//      const reminder = document.createElement("p");
-//      reminder.href = "/show_reminders";
-//      reminder.innerText = "$$REMINDERS$$";
-//      remindersDiv.appendChild(reminder);
-// }
-
 // The function that will be executed when the user access the user for the first time in one browser
 function firstAccess(){
     nameButton.addEventListener("click", firstHello);

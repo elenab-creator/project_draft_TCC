@@ -4,6 +4,8 @@ app = flask.Flask("project")
 
 import csv
 
+subscriptions = []
+
 # Function that will read the content of each html file and return it in the browser
 def get_html(page_name):
     html_file = open(page_name + ".html")
@@ -51,7 +53,7 @@ def show_subscription_add_page():
 @app.route("/add_subscription")
 def submit_subscription():
     new_subscription()
-    return get_html("/show_subscriptions") ############ need to direct route("/show_subscriptions") not the page as it is
+    return flask.redirect("/show_subscriptions") 
 
 @app.route("/show_subscriptions") 
 def subscriptions_page():
@@ -64,6 +66,8 @@ def subscriptions_page():
             lines = ("<table border=1> <tr> <td> Subscription Name </td> <td> Subscription Start Date </td> <td> Subscription End Date </td> <td> Subscription Renewal Date </td> <td> Subscription Fee </td> </tr>")
             for row in rows:
                 each_subscription = ("<tr> <td>" + str(row[0]) + "</td> <td>" + str(row[1]) + "</td> <td>" + str(row[2]) + "</td> <td>" + str(row[3]) + "</td> <td>" + str(row[4]) + "</td> </tr>")
+                subscription = Subscription(str(row[0]), str(row[1]), str(row[2]), str(row[3]), str(row[4]))
+                subscriptions.append(subscription)
                 lines += each_subscription
             result = lines + "</table>"
         return html_page.replace("$$SUBSCRIPTIONS$$", result)
