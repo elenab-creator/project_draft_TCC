@@ -35,7 +35,6 @@ class Subscription:
 # Function that will obtain the information provided by the user when a new subscription is added, 
 # create a new subscription object of the class Object and
 # write the object attributes in the csv file
-username = "user1"
 def new_subscription():
     global subscription
     name = flask.request.args.get("name")
@@ -43,12 +42,27 @@ def new_subscription():
     end = flask.request.args.get("end")
     renewal = flask.request.args.get("renewal")
     fee = flask.request.args.get("fee")
+    username = request.cookies.get("userID")
     subscription = Subscription(name, start, end, renewal, fee, username)
     subscription.write_to_file()
 
 @app.route("/")
 def homepage():
     return get_html("index")
+    ## The first time that user A logs in and uses the app there are no problems. After closing and reopening 
+    ## the browser and although his username remains saved in local storage and in cookies, the "raw" homepage (index) returns. 
+    ## Which makes sense as this is the index route. Tried the following if statement, trying to say get the 
+    ## "raw" index page if there is no value assigned to the userID cookie, but it is clearly wrong.
+    ## How can I fix this? (It would be so much easier if I could control for lenght of local storage)
+    ## 
+    # if request.cookies.get('userID') == 0:
+    # return get_html("index")
+    # else:
+    # return flask.redirect("/menu") 
+
+@app.route("/menu")
+def menu_page():
+    return get_html("menu")
 
 @app.route("/add_subscription_page")
 def show_subscription_add_page():
@@ -62,7 +76,6 @@ def submit_subscription():
 @app.route("/show_subscriptions") 
 def subscriptions_page():
     rows = []
-    username = "user1"
     html_page = get_html("subscriptions")
     with open('subscriptions.csv', 'r', newline='') as file:
         reader = csv.reader(file)
@@ -70,7 +83,7 @@ def subscriptions_page():
             rows.append(row)
             lines = ("<table border=1> <tr> <td> Subscription Name </td> <td> Subscription Start Date </td> <td> Subscription End Date </td> <td> Subscription Renewal Date </td> <td> Subscription Fee </td> </tr>")
             for row in rows:
-                if str(row[5]) == username:
+                if str(row[5]) == request.cookies.get('userID'):
                     each_subscription = ("<tr> <td>" + str(row[0]) + "</td> <td>" + str(row[1]) + "</td> <td>" + str(row[2]) + "</td> <td>" + str(row[3]) + "</td> <td>" + str(row[4]) + "</td> </tr>")
                     lines += each_subscription
                     #subscription = Subscription(str(row[0]), str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]))
@@ -78,15 +91,10 @@ def subscriptions_page():
                 result = lines + "</table>"
         return html_page.replace("$$SUBSCRIPTIONS$$", result)
 
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-    if request.method == 'POST':
-        user = request.form['nm']
-        resp = make_response(get_html("index"))
-        resp.set_cookie('userID', user)
-        return resp
+@app.route("/get_username", methods = ['POST', 'GET'])
+def get_username():
+    username = request.form["name"]
+    resp = make_response(get_html("menu"))
+    resp.set_cookie('userID', username, max_age=60*60*24*365*100)
+    return resp
 
-@app.route('/getcookie')
-def getcookie():
-   name = request.cookies.get('userID')
-   return '<h1>welcome '+name+'</h1>'
