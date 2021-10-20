@@ -1,4 +1,5 @@
 // Constants for the elements of the index.html file are defined
+const nameText = document.getElementById("nameText");
 const nameButton = document.getElementById("nameButton");
 
 // Function that takes the input of the nameText textbox (user's name) and adds it to a 

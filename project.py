@@ -48,17 +48,18 @@ def new_subscription():
 
 @app.route("/")
 def homepage():
-    return get_html("index")
+    print(request.cookies.get('userID'))
     ## The first time that user A logs in and uses the app there are no problems. After closing and reopening 
     ## the browser and although his username remains saved in local storage and in cookies, the "raw" homepage (index) returns. 
     ## Which makes sense as this is the index route. Tried the following if statement, trying to say get the 
     ## "raw" index page if there is no value assigned to the userID cookie, but it is clearly wrong.
     ## How can I fix this? (It would be so much easier if I could control for lenght of local storage)
     ## 
-    # if request.cookies.get('userID') == 0:
-    # return get_html("index")
-    # else:
-    # return flask.redirect("/menu") 
+    if request.cookies.get('userID') == None:
+        print(request.cookies.get('userID'))
+        return get_html("index")
+    else:
+        return flask.redirect("/menu")
 
 @app.route("/menu")
 def menu_page():
